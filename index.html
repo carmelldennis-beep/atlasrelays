@@ -1404,5 +1404,371 @@
       }, 16);
     }
   </script>
+
+  <!-- CHAT WIDGET -->
+  <style>
+    #chat-toggle {
+      position: fixed;
+      bottom: 28px; right: 28px;
+      z-index: 999;
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: var(--blue);
+      border: none;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 24px rgba(0,212,255,0.4);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    #chat-toggle:hover { transform: scale(1.08); box-shadow: 0 6px 32px rgba(0,212,255,0.55); }
+    #chat-toggle svg { width: 24px; height: 24px; fill: var(--navy); transition: opacity 0.2s; }
+    #chat-toggle .icon-close { display: none; }
+
+    #chat-box {
+      position: fixed;
+      bottom: 96px; right: 28px;
+      z-index: 998;
+      width: 360px;
+      background: var(--navy-3);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 16px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(0,212,255,0.06);
+      display: none;
+      flex-direction: column;
+      max-height: 520px;
+      font-family: 'DM Sans', sans-serif;
+    }
+    #chat-box.open { display: flex; animation: chatReveal 0.25s ease both; }
+    @keyframes chatReveal {
+      from { opacity: 0; transform: translateY(12px) scale(0.97); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .chat-header {
+      background: var(--navy-4);
+      padding: 16px 20px;
+      display: flex; align-items: center; gap: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .chat-avatar {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--blue);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 16px; color: var(--navy);
+      flex-shrink: 0;
+    }
+    .chat-header-info { flex: 1; }
+    .chat-header-name { font-size: 14px; font-weight: 600; color: var(--white); }
+    .chat-header-status {
+      font-size: 11px; color: var(--blue);
+      display: flex; align-items: center; gap: 5px;
+    }
+    .chat-header-status::before {
+      content: ''; width: 6px; height: 6px; border-radius: 50%;
+      background: var(--blue); display: inline-block;
+      animation: pulse 2s infinite;
+    }
+
+    .chat-messages {
+      flex: 1; overflow-y: auto; padding: 20px 16px;
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .chat-messages::-webkit-scrollbar { width: 4px; }
+    .chat-messages::-webkit-scrollbar-track { background: transparent; }
+    .chat-messages::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .msg {
+      max-width: 85%;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 13.5px;
+      line-height: 1.5;
+      animation: msgIn 0.2s ease both;
+    }
+    @keyframes msgIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .msg-bot {
+      background: var(--navy-4);
+      color: var(--white);
+      border-bottom-left-radius: 3px;
+      align-self: flex-start;
+    }
+    .msg-user {
+      background: var(--blue);
+      color: var(--navy);
+      font-weight: 500;
+      border-bottom-right-radius: 3px;
+      align-self: flex-end;
+    }
+
+    .chat-options {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      padding: 0 16px 16px;
+    }
+    .chat-opt {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12.5px;
+      padding: 7px 14px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+    }
+    .chat-opt:hover { border-color: var(--blue); color: var(--blue); background: var(--blue-dim); }
+
+    .chat-input-row {
+      display: flex; gap: 8px;
+      padding: 12px 16px;
+      border-top: 1px solid var(--border);
+    }
+    .chat-input {
+      flex: 1;
+      background: var(--navy-4);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      padding: 8px 12px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .chat-input:focus { border-color: var(--blue); }
+    .chat-input::placeholder { color: var(--muted); }
+    .chat-send {
+      background: var(--blue);
+      border: none;
+      border-radius: 6px;
+      width: 36px; height: 36px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: opacity 0.2s;
+    }
+    .chat-send:hover { opacity: 0.85; }
+    .chat-send svg { width: 16px; height: 16px; fill: var(--navy); }
+
+    .chat-cta-btn {
+      display: inline-block;
+      margin-top: 8px;
+      background: var(--blue);
+      color: var(--navy);
+      font-weight: 600;
+      font-size: 13px;
+      padding: 10px 20px;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .chat-cta-btn:hover { opacity: 0.85; }
+
+    .typing-indicator {
+      display: flex; align-items: center; gap: 4px;
+      padding: 10px 14px;
+      background: var(--navy-4);
+      border-radius: 10px;
+      border-bottom-left-radius: 3px;
+      align-self: flex-start;
+      width: fit-content;
+    }
+    .typing-indicator span {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--muted);
+      animation: typingDot 1.2s infinite;
+    }
+    .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+    .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes typingDot {
+      0%, 60%, 100% { opacity: 0.3; transform: translateY(0); }
+      30% { opacity: 1; transform: translateY(-3px); }
+    }
+  </style>
+
+  <!-- Chat Toggle Button -->
+  <button id="chat-toggle" aria-label="Open chat">
+    <svg class="icon-chat" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+    <svg class="icon-close" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+  </button>
+
+  <!-- Chat Box -->
+  <div id="chat-box" role="dialog" aria-label="AtlasRelays chat">
+    <div class="chat-header">
+      <div class="chat-avatar">AR</div>
+      <div class="chat-header-info">
+        <div class="chat-header-name">AtlasRelays</div>
+        <div class="chat-header-status">Online now</div>
+      </div>
+    </div>
+    <div class="chat-messages" id="chat-messages"></div>
+    <div class="chat-options" id="chat-options"></div>
+    <div class="chat-input-row" id="chat-input-row" style="display:none;">
+      <input class="chat-input" id="chat-input" placeholder="Type here..." autocomplete="off" />
+      <button class="chat-send" id="chat-send">
+        <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <script>
+    // ── CHAT WIDGET ──
+    const toggle = document.getElementById('chat-toggle');
+    const box = document.getElementById('chat-box');
+    const msgsEl = document.getElementById('chat-messages');
+    const optsEl = document.getElementById('chat-options');
+    const inputRow = document.getElementById('chat-input-row');
+    const inputEl = document.getElementById('chat-input');
+    const sendBtn = document.getElementById('chat-send');
+
+    let step = 0;
+    let userData = {};
+    let chatStarted = false;
+
+    toggle.addEventListener('click', () => {
+      const isOpen = box.classList.toggle('open');
+      toggle.querySelector('.icon-chat').style.display = isOpen ? 'none' : 'block';
+      toggle.querySelector('.icon-close').style.display = isOpen ? 'block' : 'none';
+      if (isOpen && !chatStarted) { chatStarted = true; setTimeout(startChat, 400); }
+    });
+
+    function addMsg(text, type = 'bot', delay = 0) {
+      return new Promise(resolve => {
+        setTimeout(() => {
+          const div = document.createElement('div');
+          div.className = `msg msg-${type}`;
+          div.innerHTML = text;
+          msgsEl.appendChild(div);
+          msgsEl.scrollTop = msgsEl.scrollHeight;
+          resolve();
+        }, delay);
+      });
+    }
+
+    function showTyping(duration = 900) {
+      return new Promise(resolve => {
+        const t = document.createElement('div');
+        t.className = 'typing-indicator';
+        t.id = 'typing';
+        t.innerHTML = '<span></span><span></span><span></span>';
+        msgsEl.appendChild(t);
+        msgsEl.scrollTop = msgsEl.scrollHeight;
+        setTimeout(() => { t.remove(); resolve(); }, duration);
+      });
+    }
+
+    function showOptions(opts) {
+      optsEl.innerHTML = '';
+      opts.forEach(o => {
+        const btn = document.createElement('button');
+        btn.className = 'chat-opt';
+        btn.textContent = o.label;
+        btn.addEventListener('click', () => {
+          optsEl.innerHTML = '';
+          addMsg(o.label, 'user').then(() => o.action());
+        });
+        optsEl.appendChild(btn);
+      });
+    }
+
+    function showInput(placeholder, onSubmit) {
+      inputRow.style.display = 'flex';
+      inputEl.placeholder = placeholder;
+      inputEl.value = '';
+      inputEl.focus();
+      const submit = () => {
+        const val = inputEl.value.trim();
+        if (!val) return;
+        inputRow.style.display = 'none';
+        addMsg(val, 'user').then(() => onSubmit(val));
+      };
+      sendBtn.onclick = submit;
+      inputEl.onkeydown = e => { if (e.key === 'Enter') submit(); };
+    }
+
+    async function startChat() {
+      await showTyping(800);
+      await addMsg("Hey! I'm here to help figure out if AtlasRelays is a good fit for your business.");
+      await showTyping(700);
+      await addMsg("What type of business do you run?");
+      showOptions([
+        { label: 'Recruiting Firm', action: () => askChallenge('Recruiting Firm') },
+        { label: 'IT / MSP', action: () => askChallenge('IT / MSP') },
+        { label: 'Accounting Practice', action: () => askChallenge('Accounting Practice') },
+        { label: 'Drone Services', action: () => askChallenge('Drone Services') },
+        { label: 'Trucking & Freight', action: () => askChallenge('Trucking & Freight') },
+        { label: 'Other', action: () => askChallenge('Other') },
+      ]);
+    }
+
+    async function askChallenge(niche) {
+      userData.niche = niche;
+      await showTyping(700);
+      await addMsg(`Got it. What's your biggest challenge right now?`);
+      showOptions([
+        { label: "Not enough leads", action: () => askGoal('Not enough leads') },
+        { label: "Hard to reach decision makers", action: () => askGoal('Hard to reach decision makers') },
+        { label: "Leads go cold before closing", action: () => askGoal('Leads go cold before closing') },
+        { label: "No time for outreach", action: () => askGoal('No time for outreach') },
+        { label: "Something else", action: () => askGoal('Something else') },
+      ]);
+    }
+
+    async function askGoal(challenge) {
+      userData.challenge = challenge;
+      await showTyping(700);
+      await addMsg("How many new clients are you looking to add each month?");
+      showOptions([
+        { label: '1 to 3', action: () => askName('1 to 3') },
+        { label: '4 to 10', action: () => askName('4 to 10') },
+        { label: '10+', action: () => askName('10+') },
+      ]);
+    }
+
+    async function askName(goal) {
+      userData.goal = goal;
+      await showTyping(600);
+      await addMsg("We can definitely help with that. What's your name?");
+      showInput("Your first name", (name) => { userData.name = name; askEmail(name); });
+    }
+
+    async function askEmail(name) {
+      await showTyping(600);
+      await addMsg(`Nice to meet you, ${name}. What's the best email to reach you?`);
+      showInput("your@email.com", (email) => { userData.email = email; finish(email); });
+    }
+
+    async function finish(email) {
+      await showTyping(900);
+      await addMsg(`You're all set, ${userData.name}! We'll review your info and reach out within the hour.`);
+      await showTyping(700);
+      await addMsg(`Or if you'd like to talk right now:<br><a class="chat-cta-btn" href="mailto:carmell@atlasrelays.com?subject=Strategy Call Request — ${encodeURIComponent(userData.niche)}&body=Name: ${encodeURIComponent(userData.name)}%0AEmail: ${encodeURIComponent(userData.email)}%0ABusiness: ${encodeURIComponent(userData.niche)}%0AChallenge: ${encodeURIComponent(userData.challenge)}%0AGoal: ${encodeURIComponent(userData.goal)}">Book a Strategy Call</a>`);
+
+      // Auto-send lead data via mailto fallback (opens email client)
+      const subject = `New Lead: ${userData.name} (${userData.niche})`;
+      const body = `New lead from AtlasRelays chatbot:\n\nName: ${userData.name}\nEmail: ${userData.email}\nBusiness: ${userData.niche}\nChallenge: ${userData.challenge}\nGoal: ${userData.goal} new clients/month`;
+      const link = document.createElement('a');
+      link.href = `mailto:carmell@atlasrelays.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      link.style.display = 'none';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    // Auto-open after 8 seconds if not interacted
+    setTimeout(() => {
+      if (!chatStarted) {
+        box.classList.add('open');
+        toggle.querySelector('.icon-chat').style.display = 'none';
+        toggle.querySelector('.icon-close').style.display = 'block';
+        chatStarted = true;
+        setTimeout(startChat, 400);
+      }
+    }, 8000);
+  </script>
 </body>
 </html>
