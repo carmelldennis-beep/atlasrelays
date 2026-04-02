@@ -735,6 +735,9 @@
       background: var(--navy-2);
       position: relative;
       overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     #workflows::before {
@@ -996,7 +999,6 @@
       <li><a href="#serve">Who We Serve</a></li>
       <li><a href="#how">How It Works</a></li>
       <li><a href="#workflows">AI Workflows</a></li>
-      <li><a href="#pricing">Pricing</a></li>
       <li><a href="#cta" class="nav-cta">Book Strategy Call</a></li>
     </ul>
   </nav>
@@ -1074,7 +1076,7 @@
     <div class="hero-label">Done-For-You Lead Generation</div>
     <h1 class="hero-headline">10+ Qualified<br><span>Leads</span> Per Month</h1>
     <p class="hero-tagline">We find them. We book them. You close them.</p>
-    <p class="hero-sub">For recruiting firms, IT and MSPs, accounting practices, and drone service providers. We research, we outreach, we book — you just close.</p>
+    <p class="hero-sub">For recruiting firms, IT and MSPs, accounting practices, drone service providers, and trucking companies. We research, we outreach, we book. You just close.</p>
     <div class="hero-ctas">
       <a href="#cta" class="btn-primary">Book Strategy Call</a>
       <a href="#how" class="btn-ghost">See How It Works</a>
@@ -1150,7 +1152,7 @@
       <div class="serve-card reveal">
         <div class="serve-num">05</div>
         <div class="serve-title">Trucking & Freight</div>
-        <p class="serve-desc">Shippers, brokers, and logistics companies are always looking for reliable carriers — but the outreach to find them is time-consuming and inconsistent. We put you in front of the right freight decision makers consistently.</p>
+        <p class="serve-desc">Shippers, brokers, and logistics companies are always looking for reliable carriers but the outreach to find them is time-consuming and inconsistent. We put you in front of the right freight decision makers consistently.</p>
         <div class="serve-result">→ Shippers and brokers ready to move freight with your fleet</div>
       </div>
     </div>
@@ -1162,21 +1164,21 @@
       <div class="reveal">
         <div class="section-label">002 / How It Works</div>
         <h2 class="section-heading">Pipeline Built<br>For You</h2>
-        <p class="section-sub">From research to booked meeting — we handle every step. You just show up and close.</p>
+        <p class="section-sub">From research to booked meeting, we handle every step. You just show up and close.</p>
       </div>
       <div class="how-steps">
         <div class="how-step reveal">
           <div class="how-step-num">01</div>
           <div>
             <div class="how-step-title">Profile Your Ideal Clients</div>
-            <p class="how-step-desc">We study your best clients and build a precise targeting list — the right companies, the right titles, the right signals. No spraying and praying.</p>
+            <p class="how-step-desc">We study your best clients and build a precise targeting list. The right companies, the right titles, the right signals. No spraying and praying.</p>
           </div>
         </div>
         <div class="how-step reveal">
           <div class="how-step-num">02</div>
           <div>
             <div class="how-step-title">Multi-Channel Outbound</div>
-            <p class="how-step-desc">Personalized email sequences plus LinkedIn outreach — coordinated and timed for maximum impact. AI powered, human reviewed.</p>
+            <p class="how-step-desc">Personalized email sequences plus LinkedIn outreach, coordinated and timed for maximum impact. AI powered, human reviewed.</p>
           </div>
         </div>
         <div class="how-step reveal">
@@ -1199,11 +1201,11 @@
         <p class="section-sub">No hiring, no training, no tools to manage. Just a pipeline that fills itself.</p>
         <ul class="get-list">
           <li>10 or more qualified leads delivered every month</li>
-          <li>Booked calendar slots — meetings already confirmed</li>
+          <li>Booked calendar slots, meetings already confirmed</li>
           <li>Weekly campaign performance reports</li>
           <li>Personalized email and LinkedIn sequences</li>
           <li>Dedicated account manager, not a call center</li>
-          <li>Zero setup headaches — we handle everything</li>
+          <li>Zero setup headaches, we handle everything</li>
         </ul>
       </div>
       <div class="get-visual reveal">
@@ -1230,8 +1232,8 @@
     <div class="workflows-header reveal">
       <div class="section-label">004 / AI Workflows</div>
       <h2 class="section-heading">What Would Break<br><span style="color:var(--blue)">If You Doubled Tomorrow?</span></h2>
-      <p class="section-sub">The most profitable businesses don't just get more leads — they remove the bottlenecks that choke growth. These five automations fix the operational clogs that silently kill revenue.</p>
-      <p class="workflows-question">We ask every client: "If 500 new customers showed up tomorrow, what's the first thing that breaks?" — then we automate exactly that.</p>
+      <p class="section-sub">The most profitable businesses don't just get more leads. They remove the bottlenecks that choke growth. These five automations fix the operational clogs that silently kill revenue.</p>
+      <p class="workflows-question">We ask every client: "If 500 new customers showed up tomorrow, what's the first thing that breaks?" Then we automate exactly that.</p>
     </div>
 
     <div class="workflows-grid">
@@ -1241,10 +1243,10 @@
         <span class="workflow-icon">⚡</span>
         <div class="workflow-name">Speed to Lead</div>
         <div class="workflow-hook">Respond in 60 seconds, not 6 hours.</div>
-        <p class="workflow-desc">When a lead fills out a form or sends an inquiry, AI instantly qualifies them, routes them to the right person, and sends a personalized follow-up — before your competitor even sees the notification.</p>
+        <p class="workflow-desc">When a lead fills out a form or sends an inquiry, AI instantly qualifies them, routes them to the right person, and sends a personalized follow-up before your competitor even sees the notification.</p>
         <ul class="workflow-bullets">
           <li>Responding within 5 minutes is 100× more effective than 30 minutes</li>
-          <li>Works 24/7 — nights, weekends, holidays</li>
+          <li>Works 24/7 nights, weekends, holidays</li>
           <li>Personalized outreach, not generic auto-replies</li>
         </ul>
       </div>
@@ -1255,7 +1257,7 @@
         <span class="workflow-icon">📄</span>
         <div class="workflow-name">Document Processing</div>
         <div class="workflow-hook">Stop paying humans to copy and paste.</div>
-        <p class="workflow-desc">AI reads invoices, contracts, applications, and PDFs — extracts the data you need — and enters it directly into your business software. No manual data entry, no transcription errors.</p>
+        <p class="workflow-desc">AI reads invoices, contracts, applications, and PDFs, extracts the data you need, and enters it directly into your business software. No manual data entry, no transcription errors.</p>
         <ul class="workflow-bullets">
           <li>Eliminates hours of manual data entry per week</li>
           <li>Virtually zero error rate vs human processing</li>
@@ -1269,7 +1271,7 @@
         <span class="workflow-icon">🔁</span>
         <div class="workflow-name">Follow-Up Sequences</div>
         <div class="workflow-hook">Most sales happen after follow-up #5. Automate all of them.</div>
-        <p class="workflow-desc">Warm leads who've already shown interest go cold because nobody follows up enough. AI handles the entire multi-touch nurture sequence automatically — so no lead ever slips through again.</p>
+        <p class="workflow-desc">Warm leads who've already shown interest go cold because nobody follows up enough. AI handles the entire multi-touch nurture sequence automatically so no lead ever slips through again.</p>
         <ul class="workflow-bullets">
           <li>Consistent multi-channel follow-up (email, SMS, LinkedIn)</li>
           <li>Sequences pause automatically when a lead replies</li>
@@ -1283,7 +1285,7 @@
         <span class="workflow-icon">💰</span>
         <div class="workflow-name">Database Reactivation</div>
         <div class="workflow-hook">You already paid to acquire these leads. Recover the money.</div>
-        <p class="workflow-desc">Most businesses are sitting on a CRM full of past customers, old trials, and untouched leads they paid good money to generate — then never followed up with. Database reactivation segments those contacts and uses AI to re-engage them with the right message at the right time, turning dead contacts back into active revenue without spending another dollar on ads.</p>
+        <p class="workflow-desc">Most businesses are sitting on a CRM full of past customers, old trials, and untouched leads they paid good money to generate then never followed up with. Database reactivation segments those contacts and uses AI to re-engage them with the right message at the right time, turning dead contacts back into active revenue without spending another dollar on ads.</p>
         <ul class="workflow-bullets">
           <li>Segments your CRM by recency, behavior, and opportunity size</li>
           <li>Personalized re-engagement campaigns that feel human</li>
@@ -1297,7 +1299,7 @@
         <span class="workflow-icon">📊</span>
         <div class="workflow-name">Internal Reporting</div>
         <div class="workflow-hook">Reports that write themselves. Every morning.</div>
-        <p class="workflow-desc">AI pulls data from your tools, compiles your KPIs and project statuses, and sends automated updates to your team — before anyone asks. No more chasing down numbers or manually building dashboards.</p>
+        <p class="workflow-desc">AI pulls data from your tools, compiles your KPIs and project statuses, and sends automated updates to your team before anyone asks. No more chasing down numbers or manually building dashboards.</p>
         <ul class="workflow-bullets">
           <li>Pulls from any tool (CRM, Sheets, Slack, email, etc.)</li>
           <li>Saves hours of manual reporting per week</li>
@@ -1309,59 +1311,6 @@
     <div class="workflows-cta reveal">
       <p>Not sure which workflow your business needs first?</p>
       <a href="mailto:carmell@atlasrelays.com" class="btn-primary">Get a Free Bottleneck Audit</a>
-    </div>
-  </section>
-
-  <!-- PRICING -->
-  <section id="pricing">
-    <div class="pricing-header reveal">
-      <div class="section-label">005 / Pricing</div>
-      <h2 class="section-heading">Simple, Transparent<br>Plans</h2>
-      <p class="section-sub">No long-term contracts. No hidden fees. Just results.</p>
-    </div>
-    <div class="pricing-grid">
-      <div class="pricing-card reveal">
-        <div class="pricing-tier">Starter</div>
-        <div class="pricing-price"><span>$</span>997</div>
-        <div class="pricing-period">per month</div>
-        <ul class="pricing-features">
-          <li>10+ qualified leads per month</li>
-          <li>Email outreach sequences</li>
-          <li>Monthly performance report</li>
-          <li>1 target niche</li>
-          <li>Dedicated account manager</li>
-        </ul>
-        <a href="#cta" class="pricing-cta">Get Started</a>
-      </div>
-      <div class="pricing-card featured reveal">
-        <div class="pricing-badge">Most Popular</div>
-        <div class="pricing-tier">Growth</div>
-        <div class="pricing-price"><span>$</span>1,997</div>
-        <div class="pricing-period">per month</div>
-        <ul class="pricing-features">
-          <li>20+ qualified leads per month</li>
-          <li>Email and LinkedIn outreach</li>
-          <li>Weekly performance reports</li>
-          <li>Up to 2 target niches</li>
-          <li>Booked calendar meetings</li>
-          <li>Priority support</li>
-        </ul>
-        <a href="#cta" class="pricing-cta">Get Started</a>
-      </div>
-      <div class="pricing-card reveal">
-        <div class="pricing-tier">Scale</div>
-        <div class="pricing-price">Custom</div>
-        <div class="pricing-period">tailored to your goals</div>
-        <ul class="pricing-features">
-          <li>Unlimited leads and meetings</li>
-          <li>Full multi-channel campaigns</li>
-          <li>Dedicated team assigned to you</li>
-          <li>Multiple niches and markets</li>
-          <li>Custom reporting dashboard</li>
-          <li>White-glove onboarding</li>
-        </ul>
-        <a href="#cta" class="pricing-cta">Book a Call</a>
-      </div>
     </div>
   </section>
 
