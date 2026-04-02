@@ -729,6 +729,157 @@
       margin-top: 2px;
     }
 
+    /* ─── AI WORKFLOWS ─── */
+    #workflows {
+      padding: 120px 60px;
+      background: var(--navy-2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    #workflows::before {
+      content: '';
+      position: absolute;
+      bottom: -200px; right: -200px;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(0,212,255,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .workflows-header {
+      max-width: 780px;
+      margin: 0 auto 80px;
+      text-align: center;
+    }
+
+    .workflows-question {
+      font-family: 'DM Mono', monospace;
+      font-size: 13px;
+      color: var(--blue);
+      letter-spacing: 0.08em;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+
+    .workflows-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .workflow-card {
+      background: var(--navy-3);
+      padding: 40px 36px;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s;
+    }
+
+    .workflow-card:hover {
+      background: var(--navy-4);
+    }
+
+    .workflow-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--blue);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+
+    .workflow-card:hover::after {
+      transform: scaleX(1);
+    }
+
+    .workflow-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      color: var(--blue);
+      margin-bottom: 20px;
+      opacity: 0.7;
+    }
+
+    .workflow-icon {
+      font-size: 28px;
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .workflow-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 26px;
+      letter-spacing: 0.04em;
+      color: var(--white);
+      margin-bottom: 12px;
+      line-height: 1.1;
+    }
+
+    .workflow-hook {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--blue);
+      letter-spacing: 0.02em;
+      margin-bottom: 16px;
+    }
+
+    .workflow-desc {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    .workflow-bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .workflow-bullets li {
+      font-size: 13px;
+      color: var(--muted);
+      padding-left: 16px;
+      position: relative;
+      line-height: 1.5;
+    }
+
+    .workflow-bullets li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--blue);
+      font-size: 11px;
+    }
+
+    .workflow-card-wide {
+      grid-column: span 2;
+    }
+
+    .workflow-card-wide .workflow-desc {
+      max-width: 520px;
+    }
+
+    .workflows-cta {
+      text-align: center;
+      margin-top: 64px;
+    }
+
+    .workflows-cta p {
+      font-family: 'DM Mono', monospace;
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 24px;
+      letter-spacing: 0.04em;
+    }
+
     /* ─── FINAL CTA ─── */
     #cta {
       padding: 140px 60px;
@@ -815,7 +966,9 @@
     @media (max-width: 1024px) {
       nav { padding: 20px 30px; }
       .nav-links { gap: 24px; }
-      #serve, #how, #get, #pricing, #testimonials, #cta { padding: 80px 30px; }
+      #serve, #how, #get, #workflows, #pricing, #testimonials, #cta { padding: 80px 30px; }
+      .workflows-grid { grid-template-columns: 1fr 1fr; }
+      .workflow-card-wide { grid-column: span 2; }
       footer { padding: 32px 30px; }
       .serve-grid, .pricing-grid { grid-template-columns: 1fr 1fr; }
       .testimonials-grid { grid-template-columns: 1fr; }
@@ -828,6 +981,8 @@
       nav { padding: 16px 20px; }
       .nav-links { display: none; }
       #hero { padding: 120px 24px 60px; }
+      .workflows-grid { grid-template-columns: 1fr; }
+      .workflow-card-wide { grid-column: span 1; }
       .hero-stats { gap: 24px; }
     }
   </style>
@@ -840,6 +995,7 @@
     <ul class="nav-links">
       <li><a href="#serve">Who We Serve</a></li>
       <li><a href="#how">How It Works</a></li>
+      <li><a href="#workflows">AI Workflows</a></li>
       <li><a href="#pricing">Pricing</a></li>
       <li><a href="#cta" class="nav-cta">Book Strategy Call</a></li>
     </ul>
@@ -964,7 +1120,7 @@
     <div class="serve-header reveal">
       <div class="section-label">001 / Who We Serve</div>
       <h2 class="section-heading">Built For<br>Your Niche</h2>
-      <p class="section-sub">We specialize in three industries because depth beats breadth. We know your buyers, your language, and what actually moves the needle.</p>
+      <p class="section-sub">We specialize in five industries because depth beats breadth. We know your buyers, your language, and what actually moves the needle.</p>
     </div>
     <div class="serve-grid">
       <div class="serve-card reveal">
@@ -990,6 +1146,12 @@
         <div class="serve-title">Drone Services</div>
         <p class="serve-desc">Construction firms, utilities, and property managers need drone services but don't know where to find them. We connect you directly with the decision makers who sign the contracts.</p>
         <div class="serve-result">→ Construction firms and utilities ready for inspection contracts</div>
+      </div>
+      <div class="serve-card reveal">
+        <div class="serve-num">05</div>
+        <div class="serve-title">Trucking & Freight</div>
+        <p class="serve-desc">Shippers, brokers, and logistics companies are always looking for reliable carriers — but the outreach to find them is time-consuming and inconsistent. We put you in front of the right freight decision makers consistently.</p>
+        <div class="serve-result">→ Shippers and brokers ready to move freight with your fleet</div>
       </div>
     </div>
   </section>
@@ -1063,10 +1225,97 @@
     </div>
   </section>
 
+  <!-- AI WORKFLOWS -->
+  <section id="workflows">
+    <div class="workflows-header reveal">
+      <div class="section-label">004 / AI Workflows</div>
+      <h2 class="section-heading">What Would Break<br><span style="color:var(--blue)">If You Doubled Tomorrow?</span></h2>
+      <p class="section-sub">The most profitable businesses don't just get more leads — they remove the bottlenecks that choke growth. These five automations fix the operational clogs that silently kill revenue.</p>
+      <p class="workflows-question">We ask every client: "If 500 new customers showed up tomorrow, what's the first thing that breaks?" — then we automate exactly that.</p>
+    </div>
+
+    <div class="workflows-grid">
+      <!-- Speed to Lead -->
+      <div class="workflow-card reveal">
+        <div class="workflow-num">01 / SPEED TO LEAD</div>
+        <span class="workflow-icon">⚡</span>
+        <div class="workflow-name">Speed to Lead</div>
+        <div class="workflow-hook">Respond in 60 seconds, not 6 hours.</div>
+        <p class="workflow-desc">When a lead fills out a form or sends an inquiry, AI instantly qualifies them, routes them to the right person, and sends a personalized follow-up — before your competitor even sees the notification.</p>
+        <ul class="workflow-bullets">
+          <li>Responding within 5 minutes is 100× more effective than 30 minutes</li>
+          <li>Works 24/7 — nights, weekends, holidays</li>
+          <li>Personalized outreach, not generic auto-replies</li>
+        </ul>
+      </div>
+
+      <!-- Document Processing -->
+      <div class="workflow-card reveal">
+        <div class="workflow-num">02 / DOCUMENT PROCESSING</div>
+        <span class="workflow-icon">📄</span>
+        <div class="workflow-name">Document Processing</div>
+        <div class="workflow-hook">Stop paying humans to copy and paste.</div>
+        <p class="workflow-desc">AI reads invoices, contracts, applications, and PDFs — extracts the data you need — and enters it directly into your business software. No manual data entry, no transcription errors.</p>
+        <ul class="workflow-bullets">
+          <li>Eliminates hours of manual data entry per week</li>
+          <li>Virtually zero error rate vs human processing</li>
+          <li>Works with any document format or source</li>
+        </ul>
+      </div>
+
+      <!-- Follow-up Sequences -->
+      <div class="workflow-card reveal">
+        <div class="workflow-num">03 / FOLLOW-UP SEQUENCES</div>
+        <span class="workflow-icon">🔁</span>
+        <div class="workflow-name">Follow-Up Sequences</div>
+        <div class="workflow-hook">Most sales happen after follow-up #5. Automate all of them.</div>
+        <p class="workflow-desc">Warm leads who've already shown interest go cold because nobody follows up enough. AI handles the entire multi-touch nurture sequence automatically — so no lead ever slips through again.</p>
+        <ul class="workflow-bullets">
+          <li>Consistent multi-channel follow-up (email, SMS, LinkedIn)</li>
+          <li>Sequences pause automatically when a lead replies</li>
+          <li>Converts warm leads that your team forgot about</li>
+        </ul>
+      </div>
+
+      <!-- Database Reactivation - wide card -->
+      <div class="workflow-card workflow-card-wide reveal">
+        <div class="workflow-num">04 / DATABASE REACTIVATION</div>
+        <span class="workflow-icon">💰</span>
+        <div class="workflow-name">Database Reactivation</div>
+        <div class="workflow-hook">You already paid to acquire these leads. Recover the money.</div>
+        <p class="workflow-desc">Most businesses are sitting on a CRM full of past customers, old trials, and untouched leads they paid good money to generate — then never followed up with. Database reactivation segments those contacts and uses AI to re-engage them with the right message at the right time, turning dead contacts back into active revenue without spending another dollar on ads.</p>
+        <ul class="workflow-bullets">
+          <li>Segments your CRM by recency, behavior, and opportunity size</li>
+          <li>Personalized re-engagement campaigns that feel human</li>
+          <li>Recovers revenue from leads you already own</li>
+        </ul>
+      </div>
+
+      <!-- Internal Reporting -->
+      <div class="workflow-card reveal">
+        <div class="workflow-num">05 / INTERNAL REPORTING</div>
+        <span class="workflow-icon">📊</span>
+        <div class="workflow-name">Internal Reporting</div>
+        <div class="workflow-hook">Reports that write themselves. Every morning.</div>
+        <p class="workflow-desc">AI pulls data from your tools, compiles your KPIs and project statuses, and sends automated updates to your team — before anyone asks. No more chasing down numbers or manually building dashboards.</p>
+        <ul class="workflow-bullets">
+          <li>Pulls from any tool (CRM, Sheets, Slack, email, etc.)</li>
+          <li>Saves hours of manual reporting per week</li>
+          <li>Team stays aligned without daily standups</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="workflows-cta reveal">
+      <p>Not sure which workflow your business needs first?</p>
+      <a href="mailto:carmell@atlasrelays.com" class="btn-primary">Get a Free Bottleneck Audit</a>
+    </div>
+  </section>
+
   <!-- PRICING -->
   <section id="pricing">
     <div class="pricing-header reveal">
-      <div class="section-label">004 / Pricing</div>
+      <div class="section-label">005 / Pricing</div>
       <h2 class="section-heading">Simple, Transparent<br>Plans</h2>
       <p class="section-sub">No long-term contracts. No hidden fees. Just results.</p>
     </div>
