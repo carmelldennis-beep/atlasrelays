@@ -1747,20 +1747,33 @@
     }
 
     async function finish(email) {
-      // Submit to Google Sheet via Google Form
-      const formUrl = 'https://docs.google.com/forms/d/e/1FAIpQLScTVvTwFBz9vLHH-m2O0iRpaLMD5IHD_llzL0GYQRBEWqlr1Q/formResponse';
-      const params = new URLSearchParams();
-      params.append('entry.783154850', userData.name);
-      params.append('entry.1717111567', userData.email);
-      params.append('entry.7990098', userData.niche);
-      params.append('entry.1088028737', userData.challenge);
-      params.append('entry.477173548', userData.goal);
-      fetch(formUrl, {
-        method: 'POST',
-        body: params,
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+      // Submit to Google Sheet via hidden iframe form
+      const iframe = document.createElement('iframe');
+      iframe.name = 'hidden_iframe';
+      iframe.style.display = 'none';
+      document.body.appendChild(iframe);
+      const form = document.createElement('form');
+      form.method = 'POST';
+      form.action = 'https://docs.google.com/forms/d/e/1FAIpQLScTVvTwFBz9vLHH-m2O0iRpaLMD5IHD_llzL0GYQRBEWqlr1Q/formResponse';
+      form.target = 'hidden_iframe';
+      form.style.display = 'none';
+      const fields = {
+        'entry.783154850': userData.name,
+        'entry.1717111567': userData.email,
+        'entry.7990098': userData.niche,
+        'entry.1088028737': userData.challenge,
+        'entry.477173548': userData.goal
+      };
+      Object.entries(fields).forEach(([name, value]) => {
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = name;
+        input.value = value;
+        form.appendChild(input);
       });
+      document.body.appendChild(form);
+      form.submit();
+      setTimeout(() => { iframe.remove(); form.remove(); }, 3000);
 
       await showTyping(900);
       await addMsg(`You're all set, ${userData.name}! We'll review your info and reach out within the hour.`);
