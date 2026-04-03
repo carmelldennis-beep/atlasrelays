@@ -1747,33 +1747,20 @@
     }
 
     async function finish(email) {
-      // Submit to Google Sheet via hidden iframe form
-      const iframe = document.createElement('iframe');
-      iframe.name = 'hidden_iframe';
-      iframe.style.display = 'none';
-      document.body.appendChild(iframe);
-      const form = document.createElement('form');
-      form.method = 'POST';
-      form.action = 'https://docs.google.com/forms/d/e/1FAIpQLScTVvTwFBz9vLHH-m2O0iRpaLMD5IHD_llzL0GYQRBEWqlr1Q/formResponse';
-      form.target = 'hidden_iframe';
-      form.style.display = 'none';
-      const fields = {
-        'entry.783154850': userData.name,
-        'entry.1717111567': userData.email,
-        'entry.7990098': userData.niche,
-        'entry.1088028737': userData.challenge,
-        'entry.477173548': userData.goal
-      };
-      Object.entries(fields).forEach(([name, value]) => {
-        const input = document.createElement('input');
-        input.type = 'hidden';
-        input.name = name;
-        input.value = value;
-        form.appendChild(input);
+      // Submit to Web3Forms
+      fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          access_key: 'a74db2f5-90a8-4ba9-b675-430e83a53d53',
+          subject: 'New Lead: ' + userData.name + ' (' + userData.niche + ')',
+          name: userData.name,
+          email: userData.email,
+          business_type: userData.niche,
+          biggest_challenge: userData.challenge,
+          goal_new_clients: userData.goal
+        })
       });
-      document.body.appendChild(form);
-      form.submit();
-      setTimeout(() => { iframe.remove(); form.remove(); }, 3000);
 
       await showTyping(900);
       await addMsg(`You're all set, ${userData.name}! We'll review your info and reach out within the hour.`);
