@@ -1743,20 +1743,20 @@
     }
 
     async function finish(email) {
+      // Submit to Google Sheet via Google Form
+      const formUrl = 'https://docs.google.com/forms/d/e/1FAIpQLScTVvTwFBz9vLHH-m2O0iRpaLMD5IHD_llzL0GYQRBEWqlr1Q/formResponse';
+      const formData = new FormData();
+      formData.append('entry.783154850', userData.name);
+      formData.append('entry.1717111567', userData.email);
+      formData.append('entry.7990098', userData.niche);
+      formData.append('entry.1088028737', userData.challenge);
+      formData.append('entry.477173548', userData.goal);
+      fetch(formUrl, { method: 'POST', body: formData, mode: 'no-cors' });
+
       await showTyping(900);
       await addMsg(`You're all set, ${userData.name}! We'll review your info and reach out within the hour.`);
       await showTyping(700);
-      await addMsg(`Or if you'd like to talk right now:<br><a class="chat-cta-btn" href="mailto:carmell@atlasrelays.com?subject=Strategy Call Request — ${encodeURIComponent(userData.niche)}&body=Name: ${encodeURIComponent(userData.name)}%0AEmail: ${encodeURIComponent(userData.email)}%0ABusiness: ${encodeURIComponent(userData.niche)}%0AChallenge: ${encodeURIComponent(userData.challenge)}%0AGoal: ${encodeURIComponent(userData.goal)}">Book a Strategy Call</a>`);
-
-      // Auto-send lead data via mailto fallback (opens email client)
-      const subject = `New Lead: ${userData.name} (${userData.niche})`;
-      const body = `New lead from AtlasRelays chatbot:\n\nName: ${userData.name}\nEmail: ${userData.email}\nBusiness: ${userData.niche}\nChallenge: ${userData.challenge}\nGoal: ${userData.goal} new clients/month`;
-      const link = document.createElement('a');
-      link.href = `mailto:carmell@atlasrelays.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-      link.style.display = 'none';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+      await addMsg(`Or if you'd like to talk right now:<br><a class="chat-cta-btn" href="mailto:carmell@atlasrelays.com?subject=Strategy Call Request - ${encodeURIComponent(userData.niche)}&body=Name: ${encodeURIComponent(userData.name)}%0AEmail: ${encodeURIComponent(userData.email)}%0ABusiness: ${encodeURIComponent(userData.niche)}%0AChallenge: ${encodeURIComponent(userData.challenge)}%0AGoal: ${encodeURIComponent(userData.goal)}">Book a Strategy Call</a>`);
     }
 
     // Auto-open after 8 seconds if not interacted
